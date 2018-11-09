@@ -2,47 +2,54 @@ const path = require("path");
 const CleanWebpackPlugin = require("clean-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const autoprefixer = require("autoprefixer");
+
 const devMode = process.env.NODE_ENV !== "production";
 module.exports = {
   entry: {
-    index: "./src/index.js",
+    index: "./src/index.js"
   },
-  plugins: [
-    new CleanWebpackPlugin(["dist"]),
-    new HtmlWebpackPlugin({
-      title: "index"
-    })
-  ],
   output: {
-    filename: devMode ? '[name].[hash:8].js': '[name].[chunkhash:8].js',       //为了缓存,由于热更新与chunkhash不兼容，所以开发与生产要分开配置
-    chunkFilename: devMode ? '[name].[hash:8].js': '[name].[chunkhash:8].js',  //为了缓存,由于热更新与chunkhash不兼容，所以开发与生产要分开配置
+    filename: devMode ? "[name].[hash:8].js" : "[name].[chunkhash:8].js", //为了缓存,由于热更新与chunkhash不兼容，所以开发与生产要分开配置
+    chunkFilename: devMode ? "[name].[hash:8].js" : "[name].[chunkhash:8].js", //为了缓存,由于热更新与chunkhash不兼容，所以开发与生产要分开配置
     path: path.resolve(__dirname, "dist") //定义输出文件夹dist路径
+  },
+  resolve: {
+    modules: [
+        "node_modules",
+        path.resolve(__dirname, "src")
+    ],
+    extensions: [".js", ".json", ".jsx", ".css", ".sass"]
   },
   module: {
     rules: [
       {
+        test: /\.jsx?$/,
+        use: "babel-loader"
+      },
+      {
         test: /\.(sa|sc|c)ss$/,
         use: [
           devMode ? "style-loader" : MiniCssExtractPlugin.loader, //分离CSS文件，但是这个插件不兼容style-loader，所以设置分别开发与生产
-          "css-loader",
+          { loader: "css-loader", options: { sourceMap: true } },
           {
-            loader: "postcss-loader", //本文未用到此loader...
+            loader: "postcss-loader",
             options: {
-              // 如果没有options这个选项将会报错 No PostCSS Config found
-              plugins: loader => []
+              plugins:[autoprefixer], //这个必须要写,不然报错 应该是版本兼容问题
             }
           },
-          "sass-loader"
+          { loader: "sass-loader", options: { sourceMap: true } }
         ]
       }
     ]
   },
   optimization: {
+    runtimeChunk: {
+      //分离webpack运行时的引导代码
+      name: "single"
+    },
     splitChunks: {
-      chunks: "all", //移除js重复的模块
-      runtimeChunk: {
-          name: 'runtime'
-        }, //分离webpack运行时的引导代码
+      chunks: "initial", //移除js重复的模块
       cacheGroups: {
         //将样式文件提取到一个css中
         styles: {
@@ -55,8 +62,18 @@ module.exports = {
     }
   },
   plugins: [
+    new CleanWebpackPlugin(["./dist"]),
+    new HtmlWebpackPlugin({
+      filename: "index.html",
+      template: "./src/index.html",
+      inject: "body",
+      minify: {
+        removeAttributeQuotes: true // 移除属性的引号
+      }
+    }),
     new MiniCssExtractPlugin({
-      filename: "[name].css"
+      filename: "[name].[contenthash:8].css",
+      chunkFilename: "[name].[contenthash:8].css"
     })
   ]
 };

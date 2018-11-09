@@ -1,13 +1,11 @@
 import _ from 'lodash';
 import  "./scss/index.scss"
-import  "./scss/index1.scss"
 function component() {
+    debugger;
     var element = document.createElement('div');
-
-    // Lodash, now imported by this script
-    element.innerHTML = _.join(['Hello', 'webpack'], ' ');
-
+    element.innerHTML = _.join(['Hello', 'w111111ebpack'], ' ');
     return element;
 }
-
+debugger;
+console.log(document.body)
 document.body.appendChild(component());

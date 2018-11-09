@@ -1,6 +1,9 @@
-
-
-
-    .dev{
-            background-color: #fff;
-        } 
+div {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  background-color: black;
+  border: 1px solid #999999;
+  transform: translate(20, 20);
+  background: linear-gradient();
+}
