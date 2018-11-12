@@ -8,6 +8,9 @@ export default class register extends React.Component {
           <span>返回</span>
           <span>京东登录</span>
         </header>
+        <section>
+          <div />
+        </section>
       </div>
     );
   }
