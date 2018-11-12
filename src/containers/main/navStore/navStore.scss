@@ -1,0 +1,35 @@
+@import  "../../../scss/base.scss";
+.nav-store {
+    border: none;
+    background-color: #f6004b;
+    width: 100%;
+  .nav-store-wrap {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+    height: 3.8rem;
+    overflow: hidden;
+    border-radius: .333333rem;
+    margin: 0 .25rem 0 .25rem;
+    background-color: #fff;
+    z-index: 11;
+    .store-item {
+      width: 20%;
+      height: 1.9rem;
+      background-color: #fff;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-evenly;
+      align-items: center;
+      .item-icon{
+        width: 1rem;
+        height: 1rem;
+      }
+      .item-title{
+        @include font-dpr(12px);
+      }
+    }
+  }
+}

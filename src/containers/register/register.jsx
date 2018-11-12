@@ -1,8 +1,14 @@
 import React from "react";
-
-export default class register extends React.Component{
-
-    render(){
-        return <h3>注册页面</h3>
-    }
+import "./register.scss";
+export default class register extends React.Component {
+  render() {
+    return (
+      <div>
+        <header>
+          <span>返回</span>
+          <span>京东登录</span>
+        </header>
+      </div>
+    );
+  }
 }
