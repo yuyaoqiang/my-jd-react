@@ -1,0 +1,70 @@
+@import  "../../scss/base";
+$redColor : #e33030;
+$searchColor: #999999;
+header{
+    width: 100%;
+    z-index: 999;
+    @include font-dpr(16px);
+    .header-wrap{
+        position: fixed;
+        top:0;
+        width: 100%;
+        display: flex;
+        flex-wrap: nowrap;
+        align-items: center;
+        height: 1.333333rem;
+        line-height: 1.333333rem;
+        background-color: $redColor;
+        color: #fff;
+        .header-left-wrap{
+            flex:  0 0 1.066667rem;
+            text-align: center;
+            margin: 0 .2rem;
+            @include font-dpr(28px);
+        }
+        .header-content-wrap{
+            width: 100%;
+            flex: 1 1 80%;
+            height: .933333rem;
+            display: flex;
+            flex-wrap: nowrap;
+            color: $searchColor;
+            text-align: center;
+            padding-left: .2rem;
+            border-radius: .533333rem;
+            background-color: #fff;
+            .header-input-wrap{
+                flex: 1 1;
+                overflow: hidden;
+                text-align: left;
+                line-height: .933333rem;
+                @include font-dpr(14px);
+            }
+            .header-cotent-jd-icon{
+                position: relative;
+                @include font-dpr(16px);
+                margin: 0 .133333rem;
+                line-height: .933333rem;
+                flex: 0 0 .533333rem;
+                &::after{
+                    content: "";
+                    position: absolute;
+                    top: .23rem;
+                    left: .7rem;
+                    border: 1px solid  #adacac;
+                    height: .4rem;
+                }
+            }
+            .header-cotent-sreach-icon{
+                @include font-dpr(16px);
+                line-height: .933333rem;
+                margin: 0 .133333rem;
+                flex: 0 0 40px;
+            }
+        }
+        .header-rigth-wrap{
+            flex: 0 0 1.066667rem;
+            margin: 0 .2rem;
+        }
+    }
+}

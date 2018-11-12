@@ -6,9 +6,7 @@ const autoprefixer = require("autoprefixer");
 
 const devMode = process.env.NODE_ENV !== "production";
 module.exports = {
-  entry: {
-    index: "./src/index.js"
-  },
+  entry: ['react-hot-loader/patch',"./src/index.js"],
   output: {
     filename: devMode ? "[name].[hash:8].js" : "[name].[chunkhash:8].js", //为了缓存,由于热更新与chunkhash不兼容，所以开发与生产要分开配置
     chunkFilename: devMode ? "[name].[hash:8].js" : "[name].[chunkhash:8].js", //为了缓存,由于热更新与chunkhash不兼容，所以开发与生产要分开配置
@@ -19,7 +17,10 @@ module.exports = {
         "node_modules",
         path.resolve(__dirname, "src")
     ],
-    extensions: [".js", ".json", ".jsx", ".css", ".sass"]
+    extensions: [".js", ".json", ".jsx", ".css", ".sass"],
+    alias: {
+      '@': path.resolve('src'),
+    },
   },
   module: {
     rules: [
@@ -40,6 +41,31 @@ module.exports = {
           },
           { loader: "sass-loader", options: { sourceMap: true } }
         ]
+      },
+      {
+        test:/\.(png|jpg|gif|jpeg)/,
+          use: [
+              {
+                  loader: 'url-loader',
+                  options: {
+                      limit: 5000,//如果小于则以base64位显示，大于这个则以图片路径显示
+                      outputPath: 'images/'//让图片都打包到images文件夹下
+                  }
+              }
+          ]
+      },
+      {
+        test: /\.(png|woff|woff2|eot|ttf|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+          use: [
+              {
+                  loader: 'url-loader',
+                  options: {
+                    limit: 5000, // fonts file size <= 5KB, use 'base64'; else, output svg file
+                    publicPath: "fonts/",
+                    outputPath: "fonts/"
+                  }
+              }
+          ]
       }
     ]
   },
@@ -75,5 +101,12 @@ module.exports = {
       filename: "[name].[contenthash:8].css",
       chunkFilename: "[name].[contenthash:8].css"
     })
-  ]
+  ],
+  node: {
+    dgram: 'empty',
+    fs: 'empty',
+    net: 'empty',
+    tls: 'empty',
+    child_process: 'empty',
+  }
 };
