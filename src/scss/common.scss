@@ -3,7 +3,7 @@
 @import '../fonts/iconfont.css';
 html,
 body {
-  background: #f0f0f0;
+  background: #fff;
   color: #505050;
   /* 不允许选中 */
   -webkit-user-select: none;
@@ -123,16 +123,16 @@ input[type=button] {
 
 input::-webkit-input-placeholder {
   /*修改webkit中input的planceholder样式*/
-  color: #969;
+  color: #999;
 }
 
 textarea::-webkit-input-placeholder {
   /*修改webkit中input的planceholder样式*/
-  color: #969;
+  color: #999;
 }
 
 input:focus::-webkit-input-placeholder {
-  color: #969;
+  color: #999;
 }
 
 input::-webkit-input-speech-button {
