@@ -17,6 +17,8 @@ header{
         background-color: $redColor;
         color: #fff;
         z-index: 999;
+        max-width: 10rem;
+
         .header-left-wrap{
             flex:  0 0 1.066667rem;
             text-align: center;
